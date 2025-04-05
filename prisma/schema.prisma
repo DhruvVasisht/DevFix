@@ -16,7 +16,8 @@ model Profile {
   servers Server[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
- 
+  members Member[]
+  channels Channel[]
 }
 
 model Server {
@@ -26,9 +27,12 @@ model Server {
   inviteCode String @db.Text
   profileId String
   profile Profile @relation(fields: [profileId], references: [id] , onDelete: Cascade)
+  members Member[]
+  channels Channel[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@index([profileId])
+  
 }
 
 enum MemberRole {
@@ -39,5 +43,41 @@ enum MemberRole {
 
 model Member {
   id String @id @default(uuid())
+  role MemberRole @default(GUEST)
+
+  profileId String
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  serverId String
+  server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   
+  @@index([profileId])
+  @@index([serverId])
+}
+
+enum ChannelType {
+  TEXT
+  AUDIO
+  VIDEO
+}
+
+model Channel {
+  id String @id @default(uuid())
+  name String
+  type ChannelType @default(TEXT)
+
+  profileId String
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+
+  serverId String
+  server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+  @@index([serverId])
 }
