@@ -58,7 +58,7 @@ const InitialModal = () => {
 
   return (
     <Dialog open>
-      <DialogContent className="overflow-hidden text-black bg-white p-0">
+      <DialogContent className="text-black bg-white p-0 overflow-hidden ">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl font-bold text-center">
             Customize Your Codespace
@@ -99,7 +99,7 @@ const InitialModal = () => {
                     <FormControl>
                       <Input
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                        className="bg-zinc-300/50 border-0 focus-visible:ring-1 text-black focus-visible:ring-offset-2"
                         placeholder="Enter codespace name"
                         {...field}
                       />
