@@ -35,59 +35,60 @@ const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
   }
 
   return (
-    <div className="text-black">
+    <div className="text-black max-w-md mx-auto">
       <UploadDropzone
         endpoint={endpoint}
         appearance={{
           container: {
             backgroundColor: "#f9fafb",
-            border: "2px dashed #3b82f6",
-            borderRadius: "0.75rem",
-            padding: "1.5rem",
+            border: "2px dashed #60a5fa",
+            borderRadius: "1rem",
+            padding: "2rem",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "0.5rem",
-            color: "#000000 !important",
+            gap: "0.75rem",
+            cursor: "pointer",
+            transition: "all 0.3s ease-in-out",
           },
           label: {
-            color: "#000000",
-            fontSize: "1rem",
-            fontWeight: "500",
+            color: "#1f2937",
+            fontSize: "1.125rem",
+            fontWeight: "600",
           },
           allowedContent: {
             color: "#6b7280",
             fontSize: "0.875rem",
+            marginTop: "0.25rem",
           },
           uploadIcon: {
             color: "#3b82f6",
-            width: "40px",
-            height: "40px",
+            width: "48px",
+            height: "48px",
           },
           button: {
-            color: "#000",
+            backgroundColor: "#3b82f6",
+            padding: "0.5rem 1.25rem",
+            borderRadius: "0.5rem",
+            color: "#ffffff",
+            fontWeight: "500",
+            border: "none",
+            marginTop: "0.5rem",
+            transition: "background-color 0.2s ease-in-out",
           },
         }}
-        content={{
-          button: ({ isUploading }) => {
-            if (isUploading) return "Uploading...";
-            if (fileSelected) return "Upload Now";
-            return "Upload Now";
-          },
-        }}
-        onUploadBegin={() => {
-          setFileSelected(true);
-        }}
+        onUploadBegin={() => setFileSelected(true)}
         onClientUploadComplete={(res) => {
-          setFileSelected(false); 
-          onChange(res?.[0].ufsUrl); 
+          setFileSelected(false);
+          onChange(res?.[0].ufsUrl);
         }}
         onUploadError={(error) => {
           console.error(error);
-          setFileSelected(false); 
+          setFileSelected(false);
         }}
       />
+      
     </div>
   );
 };
