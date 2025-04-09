@@ -40,6 +40,11 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
               Codespace Settings <Settings className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
+          {isAdmin && (
+            <DropdownMenuItem className="flex justify-between cursor-pointer">
+              Manage Devs <Settings className="h-4 w-4 ml-auto" />
+            </DropdownMenuItem>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
