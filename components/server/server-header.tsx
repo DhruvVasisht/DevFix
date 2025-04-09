@@ -6,9 +6,10 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Settings, UserPlus } from "lucide-react";
+import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from "lucide-react";
 
 interface ServerHeaderProps {
   server: ServerWithMemberWithProfiles;
@@ -42,7 +43,25 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
           )}
           {isAdmin && (
             <DropdownMenuItem className="flex justify-between cursor-pointer">
-              Manage Devs <Settings className="h-4 w-4 ml-auto" />
+              Manage Devs <Users className="h-4 w-4 ml-auto" />
+            </DropdownMenuItem>
+          )}
+          {isModerator && (
+            <DropdownMenuItem className="flex justify-between cursor-pointer">
+              Create Channel <PlusCircle className="h-4 w-4 ml-auto" />
+            </DropdownMenuItem>
+          )}
+          {isModerator && (
+            <DropdownMenuSeparator/>
+          )}
+          {isAdmin && (
+            <DropdownMenuItem className="text-red-400 flex justify-between cursor-pointer ">
+              Delete Codespace <Trash className="text-rose-500 h-4 w-4 ml-auto" />
+            </DropdownMenuItem>
+          )}
+           {!isAdmin && (
+            <DropdownMenuItem className="text-red-400 flex justify-between cursor-pointer ">
+              Leave Codespace <LogOut className="text-rose-500 h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
         </DropdownMenuContent>
