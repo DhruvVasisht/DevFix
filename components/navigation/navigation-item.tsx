@@ -36,7 +36,7 @@ const NavigationItem = ({ id, name, imageUrl }: NavigationItemProps) => {
               : "rounded-[24px]"
           )}
         >
-          <Image fill src={imageUrl} alt="Channel" className="object-cover hover:cursor-pointer"/>
+          <Image fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" priority src={imageUrl} alt="Channel" className="object-cover hover:cursor-pointer"/>
         </div>
       </button>
     </ActionTooltip>
