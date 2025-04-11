@@ -48,7 +48,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             </DropdownMenuItem>
           )}
           {isAdmin && (
-            <DropdownMenuItem className="flex justify-between cursor-pointer">
+            <DropdownMenuItem onClick={()=> onOpen("members", { server })} className="flex justify-between cursor-pointer">
               Manage Devs <Users className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
