@@ -41,7 +41,9 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             </DropdownMenuItem>
           )}
           {isAdmin && (
-            <DropdownMenuItem className="flex justify-between cursor-pointer">
+            <DropdownMenuItem 
+            onClick={()=> onOpen("editServer", { server })}
+            className="flex justify-between cursor-pointer">
               Codespace Settings <Settings className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
