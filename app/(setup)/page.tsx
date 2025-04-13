@@ -25,4 +25,5 @@ const SetupPage = async () => {
         </div>
     )
 }
+
 export default SetupPage;
