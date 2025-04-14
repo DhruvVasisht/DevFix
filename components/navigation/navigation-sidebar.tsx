@@ -41,7 +41,7 @@ const NavigationSidebar = async () => {
             <ModeToggle />
             <UserButton afterSignOutUrl="/" appearance={{
                     elements: {
-                        avatarBox: "h-[48px] w-[48px]"
+                        avatarBox:"h-[48px] w-[48px] !important",
                     }
                 }} />
 
