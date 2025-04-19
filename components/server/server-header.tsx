@@ -53,7 +53,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
             </DropdownMenuItem>
           )}
           {isModerator && (
-            <DropdownMenuItem className="flex justify-between cursor-pointer">
+            <DropdownMenuItem onClick={()=> onOpen("createChannel", { server })} className="flex justify-between cursor-pointer">
               Create Channel <PlusCircle className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}

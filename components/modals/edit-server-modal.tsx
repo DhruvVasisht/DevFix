@@ -60,7 +60,6 @@ export const EditServerModal = () => {
           form.setValue("name", server.name);
           form.setValue("imageUrl", server.imageUrl);
         } else {
-          console.warn("No server data provided for EditServerModal, closing modal");
           onClose();
         }
       }, [server, form, onClose]);
