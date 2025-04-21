@@ -1,7 +1,11 @@
 "use client";
 
-import { Search, SearchIcon } from "lucide-react";
-
+import { SearchIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
+import { CommandDialog } from "../ui/command";
+import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 interface ServerSearchProps {
   data: {
     label: string;
@@ -17,9 +21,32 @@ interface ServerSearchProps {
 }
 
 export const ServerSearch = ({ data }: ServerSearchProps) => {
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
+  const params = useParams();
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if(e.key==="k" && (e.metaKey || e.ctrlKey)){
+        e.preventDefault();
+        setOpen(true);
+      }
+    }
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
+
+  const onClick = (id: string, type: "channel" | "member") => {
+    setOpen(false);
+    if(type==="channel"){
+      router.push(`/servers/${params.serverId}/channels/${id}`);
+    }
+    if(type==="member"){
+      router.push(`/servers/${params.serverId}/conversations/${id}`);
+    }
+  }
   return (
     <>
-      <button className="group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
+      <button onClick={()=>setOpen(true)} className="group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
         <SearchIcon className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
         <p className="font-semibold text-sm text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition">
           Search
@@ -28,6 +55,22 @@ export const ServerSearch = ({ data }: ServerSearchProps) => {
           <span className="text-xs">CTRL K</span>
         </kbd>
       </button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          {data.map(({label, type, data})=>{
+            if(!data?.length) return null;
+              return <CommandGroup key={label} heading={label} onSelect={()=>{}} 
+              className="cursor-pointer">{data?.map(({id, icon ,name})=>{
+                return <CommandItem key={id} onSelect={()=>onClick(id, type)} className="flex items-center gap-x-2 text-sm text-muted-foreground font-medium cursor-pointer">
+                  {icon}
+                  {name}
+                </CommandItem>
+              })}</CommandGroup>
+          })}
+        </CommandList>
+      </CommandDialog>
     </>
   );
 };
