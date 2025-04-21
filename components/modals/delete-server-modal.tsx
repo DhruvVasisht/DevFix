@@ -14,39 +14,38 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const LeaveServerModal = () => {
-  const { onOpen,isOpen, onClose, type, data } = useModal();
-  const isModalOpen = isOpen && type === "LeaveServer";
-  const {server} =data;
+const DeleteServerModal = () => {
+  const { onOpen, isOpen, onClose, type, data } = useModal();
+  const isModalOpen = isOpen && type === "deleteServer";
+  const { server } = data;
   const [isLoading, setIsLoading] = useState(false);
+
   const router = useRouter();
-  const onClick  = async () => {
+
+  const onClick = async () => {
     try {
       setIsLoading(true);
-      await axios.patch(`/api/servers/${server?.id}/leave`);
+      await axios.delete(`/api/servers/${server?.id}`);
       onClose();
-      router.refresh();
       router.push("/");
-    }
-
-    catch (error) {
+      router.refresh(); 
+    } catch (error) {
       console.log(error);
-    }
-    finally {
+    } finally {
       setIsLoading(false);
-      onClose();
     }
-  }
+  };
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="text-black bg-white p-0 overflow-hidden ">
+      <DialogContent className="text-black bg-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
-         <DialogTitle className="text-2xl font-bold text-center">
-            Leave Codespace
+          <DialogTitle className="text-2xl font-bold text-center">
+            Delete Codespace
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Are you sure you want to leave <span className="font-bold text-indigo-500">{server?.name}</span> ?
+            Are you sure you want to delete this? <br />
+            <span className="text-indigo-500 font-semibold">{server?.name}</span> will be permanently deleted.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="px-6 py-4 bg-gray-100">
@@ -55,15 +54,13 @@ const LeaveServerModal = () => {
               Cancel
             </Button>
             <Button disabled={isLoading} variant="primary" onClick={onClick}>
-              Confirm 
+              Confirm
             </Button>
           </div>
-        
-      </DialogFooter>
+        </DialogFooter>
       </DialogContent>
-      
     </Dialog>
   );
 };
 
-export default LeaveServerModal;
+export default DeleteServerModal;
