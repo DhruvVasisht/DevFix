@@ -36,7 +36,7 @@ const ServerSection = ({
       )}
       {role === MemberRole.ADMIN && sectionType === "members" && (
         <ActionTooltip label="Create Node" side="top">
-          <button className="darK:hover:text-white transition">
+          <button onClick={()=> onOpen("members", {server})} className="darK:hover:text-white transition">
             <Settings className="w-4 h-4 cursor-pointer" />
           </button>
         </ActionTooltip>
