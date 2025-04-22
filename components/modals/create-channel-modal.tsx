@@ -90,7 +90,7 @@ const CreateChannelModal = () => {
       <DialogContent className="text-black bg-white p-0 overflow-hidden ">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl font-bold text-center">
-            Create Channel
+            Create Node
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>

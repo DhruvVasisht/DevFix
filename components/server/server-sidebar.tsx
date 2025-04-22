@@ -71,7 +71,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
     <ScrollArea className="px-3 flex-1">
       <div className="mt-2">
         <ServerSearch data={[{
-          label: "Text Channels",
+          label: "Threads",
           type: "channel",
           data: textChannels?.map((channel) => ({
             icon: iconMap[channel.type],
@@ -80,7 +80,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
           })),
         },
         {
-          label: "Voice Channels",
+          label: "Ping Pods",
           type: "channel",
           data: audioChannels?.map((channel) => ({
             icon: iconMap[channel.type],
@@ -89,7 +89,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
           })),
         },
         {
-          label: "Video Channels",
+          label: "Pixel Pods",
           type: "channel",
           data: videoChannels?.map((channel) => ({
             icon: iconMap[channel.type],
@@ -112,7 +112,7 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
       <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2"/>
       {!!textChannels?.length && (
         <div className="mb-2">
-          <ServerSection server={server} label="Text Channels" role={role} sectionType="channels" channelType={ChannelType.TEXT} />
+          <ServerSection server={server} label="Threads" role={role} sectionType="channels" channelType={ChannelType.TEXT} />
         </div>
       )}
     </ScrollArea>

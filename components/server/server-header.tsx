@@ -23,7 +23,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
   return (
-    <div>
+    <div >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition focus:outline-none cursor-pointer">
@@ -54,7 +54,7 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
           )}
           {isModerator && (
             <DropdownMenuItem onClick={()=> onOpen("createChannel", { server })} className="flex justify-between cursor-pointer">
-              Create Channel <PlusCircle className="h-4 w-4 ml-auto" />
+              Create Nodes <PlusCircle className="h-4 w-4 ml-auto" />
             </DropdownMenuItem>
           )}
           {isModerator && (

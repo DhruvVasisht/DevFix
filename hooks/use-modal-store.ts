@@ -20,6 +20,6 @@ export const useModal = create<ModalStore>((set) => ({
   type: null,
   data: {},
   isOpen: false,
-  onOpen: (type, data = {}) => set({ type, isOpen: true, data }),
-  onClose: () => set({ type: null, isOpen: false, data: {} }), // Clear data
+  onOpen: (type, data = {}) =>{document.body.style.pointerEvents = "auto", set({ type, isOpen: true, data })},
+  onClose: () =>{ document.body.style.pointerEvents = "auto",  set({ type:null, isOpen: false, data:{} })}, // Clear data
 }));

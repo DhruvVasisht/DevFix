@@ -20,8 +20,8 @@ const ServerSection = ({label, role, sectionType, channelType,server}: ServerSec
                {label}
             </p>
             {role !==MemberRole.GUEST && sectionType ==="channels" && (
-                <ActionTooltip label="Create Channel" side="top">
-                    <button><Plus className="w-4 h-4 cursor-pointer"/></button>
+                <ActionTooltip label="Create Node" side="top">
+                    <button className= "darK:hover:text-white transition"><Plus className="w-4 h-4 cursor-pointer"/></button>
                 </ActionTooltip>
             )}
         </div>
