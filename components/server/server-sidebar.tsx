@@ -116,36 +116,44 @@ const ServerSideBar = async ({ serverId }: ServerSideBarProps) => {
         <div className="mb-2">
           <ServerSection server={server} label="Threads" role={role} sectionType="channels" 
           channelType={ChannelType.TEXT} />
+          <div className="space-y-[2px]">
           {textChannels.map((channel)=>(
             <ServerChannel key={channel.id} channel={channel} server={server} role={role} />
           ))}
+          </div>
         </div>
       )}
       {!!audioChannels?.length && (
         <div className="mb-2">
           <ServerSection server={server} label="Ping Pods" role={role} sectionType="channels" 
           channelType={ChannelType.AUDIO} />
+          <div className="space-y-[2px]">
           {audioChannels.map((channel)=>(
             <ServerChannel key={channel.id} channel={channel} server={server} role={role} />
           ))}
+          </div>
         </div>
       )}
       {!!videoChannels?.length && (
         <div className="mb-2">
           <ServerSection server={server} label="Pixel Pods" role={role} sectionType="channels" 
           channelType={ChannelType.VIDEO} />
+          <div className="space-y-[2px]">
           {videoChannels.map((channel)=>(
             <ServerChannel key={channel.id} channel={channel} server={server} role={role} />
           ))}
+          </div>
         </div>
       )}
       {!!members?.length && (
         <div className="mb-2">
           <ServerSection server={server} label="Developers" role={role} sectionType="members" 
           channelType={ChannelType.VIDEO} />
-          {members.map((channel)=>(
-            <ServerMember />
+          <div className="space-y-[2px]">
+          {members.map((member)=>(
+            <ServerMember key={member.id} member={member} server={server} />
           ))}
+          </div>
           </div>
       )}
     </ScrollArea>

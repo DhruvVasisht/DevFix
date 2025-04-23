@@ -29,13 +29,13 @@ const ServerSection = ({
       </p>
       {role !== MemberRole.GUEST && sectionType === "channels" && (
         <ActionTooltip label="Create Node" side="top">
-          <button onClick={()=> onOpen("createChannel")} className="darK:hover:text-white transition">
+          <button onClick={()=> onOpen("createChannel", {channelType})} className="darK:hover:text-white transition">
             <Plus className="w-4 h-4 cursor-pointer" />
           </button>
         </ActionTooltip>
       )}
       {role === MemberRole.ADMIN && sectionType === "members" && (
-        <ActionTooltip label="Create Node" side="top">
+        <ActionTooltip label="Manage Developers" side="top">
           <button onClick={()=> onOpen("members", {server})} className="darK:hover:text-white transition">
             <Settings className="w-4 h-4 cursor-pointer" />
           </button>
