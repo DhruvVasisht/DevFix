@@ -33,7 +33,7 @@ import {
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter} from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import { ChannelType } from "@prisma/client";
 import { useEffect } from "react";
@@ -49,40 +49,38 @@ const formSchema = z.object({
   type: z.nativeEnum(ChannelType),
 });
 
-const CreateChannelModal = () => {
+const EditChannelModal = () => {
   const { isOpen, onClose, type ,data } = useModal();
   const router = useRouter();
-  const params = useParams();
-  const isModalOpen = isOpen && type === "createChannel";
-  const {channelType} = data;
+  const isModalOpen = isOpen && type === "editChannel";
+  const {channel, server} = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: channelType || ChannelType.TEXT,
+      type: channel?.type || ChannelType.TEXT,
     },
   });
 
   useEffect(() => {
-    if(channelType){
-      form.setValue("type", channelType);
+    if(channel) {
+      form.setValue("name", channel.name);
+      form.setValue("type", channel.type);
     }
-    else{
-      form.setValue("type", ChannelType.TEXT);
-    }
-  },[channelType, form])
+   
+  },[form,channel])
 
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const url = qs.stringifyUrl({ 
-      url: "/api/channels",
+      url: `/api/channels/${channel?.id}`,
       query: {
-        serverId: params?.serverId,
+        serverId: server?.id,
       },
     });
     try {
-      await axios.post(url, values);
+      await axios.patch(url, values);
       form.reset();
       router.refresh();
       onClose();
@@ -101,7 +99,7 @@ const CreateChannelModal = () => {
       <DialogContent className="text-black bg-white p-0 overflow-hidden ">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl font-bold text-center">
-            Create Node
+            Edit Node
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
@@ -119,7 +117,7 @@ const CreateChannelModal = () => {
                       <Input
                         disabled={isLoading}
                         className="bg-zinc-300/50 border-0 focus-visible:ring-1 text-black focus-visible:ring-offset-2"
-                        placeholder="Enter node name"
+                        placeholder="Enter channel name"
                         {...field}
                       />
                     </FormControl>
@@ -174,4 +172,4 @@ const CreateChannelModal = () => {
   );
 };
 
-export default CreateChannelModal;
+export default EditChannelModal;

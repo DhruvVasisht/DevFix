@@ -13,21 +13,22 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import qs from "query-string";
 
 const DeleteChannelModal = () => {
-  const { onOpen, isOpen, onClose, type, data } = useModal();
+  const {isOpen, onClose, type, data } = useModal();
   const isModalOpen = isOpen && type === "deleteChannel";
   const { server, channel } = data;
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-
   const onClick = async () => {
     try {
       setIsLoading(true);
-      await axios.delete(`/api/servers/${server?.id}`);
+      const url = qs.stringifyUrl({url:`/api/channels/${channel?.id}`, query: { serverId: server?.id}});
+      await axios.delete(url)
       onClose();
-      router.push("/");
+      router.push(`/servers/${server?.id}`);
       router.refresh(); 
     } catch (error) {
       console.log(error);
@@ -41,11 +42,11 @@ const DeleteChannelModal = () => {
       <DialogContent className="text-black bg-white p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl font-bold text-center">
-            Delete Codespace
+            Delete Node
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
             Are you sure you want to delete this? <br />
-            <span className="text-indigo-500 font-semibold">{server?.name}</span> will be permanently deleted.
+            <span className="text-indigo-500 font-semibold">{channel?.name}</span> will be permanently deleted.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="px-6 py-4 bg-gray-100">
