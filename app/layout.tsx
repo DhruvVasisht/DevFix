@@ -5,6 +5,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { cn } from '@/lib/utils';
 import { ModalProvider } from '@/components/providers/modal-provider';
+import { SocketProvider } from '@/components/providers/socket-provider';
 
 const font = Open_Sans({
   variable: '--font-open-sans',
@@ -32,9 +33,10 @@ export default function RootLayout({
             disableTransitionOnChange
             storageKey="devfix-theme"
           >
+            <SocketProvider>
             <ModalProvider/>
             {children}
-            
+            </SocketProvider>
           </ThemeProvider>
           </body>
       </html>
