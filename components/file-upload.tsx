@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { UploadDropzone } from "@/lib/uploadthing";
-import { X } from "lucide-react";
+import { FileIcon, X } from "lucide-react";
 import { useState } from "react";
 
 interface FileUploadProps {
@@ -11,20 +11,55 @@ interface FileUploadProps {
 }
 
 const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
-  const fileType = value?.split(".").pop();
-  const [fileSelected, setFileSelected] = useState(false);
+  const [uploadName, setUploadName] = useState<string>("");
+  const fileType = uploadName?.split(".").pop()?.toLowerCase();
+  const imageTypes = ["jpg", "jpeg", "png", "gif", "webp"];
 
-  if (value && fileType !== "pdf") {
+  // Check if the file is an image
+  const isImage = value && fileType && imageTypes.includes(fileType);
+  const isPdf = value && fileType === "pdf";
+  const [fileSelected, setFileSelected] = useState(false);
+  // Render image preview
+  if (value && isImage) {
     return (
       <div className="relative h-20 w-20 mx-auto">
         <Image
+          fill
           src={value}
           alt="Upload"
-          fill
-          className="rounded-full object-cover object-center"
+          className="rounded-full object-cover"
+          onError={() => {
+            console.error("Failed to load image:", value);
+            onChange(""); // Clear invalid image
+            setUploadName(""); // Clear file name
+          }}
         />
         <button
-          onClick={() => onChange("")}
+          onClick={() => {
+            onChange("");
+            setUploadName("");
+          }}
+          className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
+          type="button"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+    );
+  }
+
+  // Render PDF preview
+  if (value && isPdf) {
+    return (
+      <div className="relative h-20 w-20 mx-auto">
+        <div className="flex items-center justify-center h-full w-full bg-indigo-100 rounded-full">
+          <FileIcon className="h-10 w-10 fill-indigo-200 stroke-indigo-400" />
+        </div>
+        <button
+          onClick={() => {
+            onChange("");
+            setUploadName("");
+          }}
           className="bg-rose-500 text-white p-1 rounded-full absolute top-0 right-0 shadow-sm"
           type="button"
         >
@@ -80,15 +115,15 @@ const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
         }}
         onUploadBegin={() => setFileSelected(true)}
         onClientUploadComplete={(res) => {
+          onChange(res?.[0]?.ufsUrl);
+          setUploadName(res?.[0]?.name || "");
           setFileSelected(false);
-          onChange(res?.[0].ufsUrl);
         }}
         onUploadError={(error) => {
           console.error(error);
           setFileSelected(false);
         }}
       />
-      
     </div>
   );
 };
