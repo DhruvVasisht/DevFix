@@ -122,7 +122,7 @@ const onRoleChange = async (memberId: string, role: MemberRole) => {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="left">
                       <DropdownMenuSub>
-                        <DropdownMenuSubTrigger className="flex items-center">
+                        <DropdownMenuSubTrigger className="flex items-center cursor-pointer">
                           <ShieldQuestion className="w-4 h-4 mr-2"/>
                           <span>Role</span>
                           </DropdownMenuSubTrigger>
@@ -149,7 +149,6 @@ const onRoleChange = async (memberId: string, role: MemberRole) => {
                       <DropdownMenuItem onClick={() => onKick(member.id)}>
                         <Gavel className="h-4 w-4 mr-2"/> Kick  
                       </DropdownMenuItem>
-
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
