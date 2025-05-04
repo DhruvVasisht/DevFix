@@ -1,22 +1,26 @@
 "use client";
 
-import { Member, Message, Profile } from "@prisma/client";
-import { ChatWelcome } from "./chat-welcome";
-import { useChatQuery } from "@/hooks/use-chat-query";
-import { Loader2, ServerCrash } from "lucide-react";
-import { Fragment, useRef, ElementRef } from "react";
-import { ChatItem } from "./chat-item";
+import { Fragment, useRef, ElementRef, useState } from "react";
 import { format } from "date-fns";
+import { Member, Message, Profile } from "@prisma/client";
+
+import { Loader2, ServerCrash } from "lucide-react";
+
+import { ChatWelcome } from "./chat-welcome";
+import { ChatItem } from "./chat-item";
+
+import { useChatQuery } from "@/hooks/use-chat-query";
 import { useChatSocket } from "@/hooks/use-chat-socket";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
+import ChatAi from "./chat-ai";
+
+const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
     profile: Profile;
   };
 };
-
-const DATE_FORMAT = "dd-MM-yyyy hh:mm a";
 
 interface ChatMessagesProps {
   name: string;
@@ -44,16 +48,24 @@ export const ChatMessages = ({
   const queryKey = `chat:${chatId}`;
   const addKey = `chat:${chatId}:messages`;
   const updateKey = `chat:${chatId}:messages:update`;
+
   const chatRef = useRef<ElementRef<"div">>(null);
   const bottomRef = useRef<ElementRef<"div">>(null);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-    useChatQuery({
-      queryKey,
-      apiUrl,
-      paramKey,
-      paramValue,
-    });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useChatQuery({
+    queryKey,
+    apiUrl,
+    paramKey,
+    paramValue,
+  });
 
   useChatSocket({ queryKey, addKey, updateKey });
 
@@ -67,8 +79,8 @@ export const ChatMessages = ({
 
   if (status === "pending") {
     return (
-      <div className="flex flex-col flex-1 h-full overflow-y-auto items-center justify-center">
-        <Loader2 className="h-7 w-7 my-4 animate-spin text-zinc-500" />
+      <div className="flex flex-col flex-1 justify-center items-center">
+        <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
         <p className="text-xs text-zinc-500 dark:text-zinc-400">
           Loading messages...
         </p>
@@ -88,7 +100,10 @@ export const ChatMessages = ({
   }
 
   return (
-    <div ref={chatRef} className="flex flex-col flex-1 h-full overflow-y-auto">
+    <div
+      ref={chatRef}
+      className="flex-1 flex flex-col py-4 overflow-y-auto relative"
+    >
       {!hasNextPage && <div className="flex-1" />}
       {!hasNextPage && <ChatWelcome type={type} name={name} />}
       {hasNextPage && (
@@ -108,25 +123,39 @@ export const ChatMessages = ({
       <div className="flex flex-col-reverse mt-auto">
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
-            {group.items.map((message: MessageWithMemberWithProfile) => (
+            {group?.items?.map((message: MessageWithMemberWithProfile) => (
               <ChatItem
                 key={message.id}
-                currentMember={member}
-                isUpdated={message.updatedAt !== message.createdAt}
-                deleted={message.deleted}
-                socketQuery={socketQuery}
-                socketUrl={socketUrl}
                 id={message.id}
+                currentMember={member}
+                member={message.member}
                 content={message.content}
                 fileUrl={message.fileUrl}
-                member={message.member}
+                deleted={message.deleted}
                 timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
+                isUpdated={message.updatedAt !== message.createdAt}
+                socketUrl={socketUrl}
+                socketQuery={socketQuery}
               />
             ))}
           </Fragment>
         ))}
       </div>
-      <div ref={bottomRef}/>
+      <div ref={bottomRef} />
+
+      {/* ✅ Floating Gemini Button with updated position and animation */}
+      {status === "success" && (
+        <>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="fixed bottom-20 right-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg z-50 animate-bounce transition-all"
+          >
+            💬
+          </button>
+
+          {isModalOpen && <ChatAi onClose={() => setIsModalOpen(false)} />}
+        </>
+      )}
     </div>
   );
 };
