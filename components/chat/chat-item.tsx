@@ -156,13 +156,13 @@ export const ChatItem = ({
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 w-full transition">
       <div className="group flex gap-x-2 items-start w-full">
-        <div className="cursor-pointer hover:drop-shadow-md transition">
+        <div onClick={onMemberClick} className="cursor-pointer hover:drop-shadow-md transition">
           <UserAvatar src={member.profile.imageUrl} />
         </div>
         <div className="flex flex-col w-full">
           <div className="flex items-center gap-x-2">
             <div className="flex items-center justify-center">
-              <p className="font-semibold cursor-pointer hover:underline">
+              <p onClick={onMemberClick} className="font-semibold cursor-pointer hover:underline">
                 {member.profile.name}
               </p>
               <ActionTooltip label={member.role}>
