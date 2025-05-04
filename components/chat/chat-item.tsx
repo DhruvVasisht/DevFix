@@ -1,12 +1,23 @@
 "use client";
 
+import * as z from 'zod'
+import axios from 'axios'
+import { useForm } from 'react-hook-form'
+import qs from 'query-string'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Member, Profile } from "@prisma/client";
 import UserAvatar from "../user-avatar";
 import { ActionTooltip } from "../action-tooltip";
-import { ShieldCheck, ShieldAlert, FileIcon } from "lucide-react";
+import { ShieldCheck, ShieldAlert, FileIcon, Edit, Trash, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useModal } from '@/hooks/use-modal-store'
+import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 interface ChatItemProps {
   id: string;
@@ -29,6 +40,11 @@ const roleIconMap = {
   GUEST: null,
 };
 
+const formSchema = z.object({
+  content: z.string().min(1),
+})
+
+
 export const ChatItem = ({
   id,
   content,
@@ -43,13 +59,73 @@ export const ChatItem = ({
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const { onOpen } = useModal()
+
+  const params = useParams()
+  const router = useRouter()
+
+  const onMemberClick = () => {
+    if (member.id === currentMember.id) {
+      return;
+    }
+
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
+  }
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      content: content,
+    },
+  })
+
+  
+  const isLoading = form.formState.isSubmitting
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: `${socketUrl}/${id}`,
+        query: socketQuery,
+      })
+
+      await axios.patch(url, values)
+      form.reset()
+      setIsEditing(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  
+
+  useEffect(() => {
+    const handleKeyDown = (event: any) => {
+      if (event.key === 'Escape' || event.keyCode === 27) {
+        setIsEditing(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => window.removeEventListener('keyDown', handleKeyDown)
+  }, [])
+
+
+  useEffect(() => {
+    form.reset({
+      content: content,
+    })
+  }, [content])
+
+
+
   const [fileType, setFileType] = useState<string | null>(null);
 
   const isAdmin = currentMember.role === "ADMIN";
   const isModerator = currentMember.role === "MODERATOR";
   const isOwner = currentMember.id === member.id;
   const canEdit = !deleted && isOwner && !fileUrl;
-  const canDelete = !deleted && (isOwner || isAdmin || isModerator);
+  const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner)
   const isPdf = fileType === "pdf" && fileUrl;
   const isImage = fileType === "image" && fileUrl;
 
@@ -148,15 +224,71 @@ export const ChatItem = ({
             >
               {content}
               {isUpdated && !deleted && (
-                <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
+                <span className="text-[10px] mx-1 text-zinc-500 dark:text-zinc-400">
                   (edited)
                 </span>
               )}
             </p>
           )}
+           {!fileUrl && isEditing && (
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className='flex items-center w-full gap-x-2 pt-2'
+              >
+                <FormField
+                  control={form.control}
+                  name='content'
+                  render={({ field }) => (
+                    <FormItem className='flex-1'>
+                      <FormControl>
+                        <div className='relative w-full'>
+                          <Input
+                            autoComplete='off'
+                            disabled={isLoading}
+                            className='p-2 bg-zinc-300/80 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-800 dark:text-zinc-200'
+                            placeholder='Edited Message'
+                            {...field}
+                          />
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <Button disabled={isLoading} size='sm' variant='primary'>
+                  Save
+                </Button>
+              </form>
+              <span className='text-[10px] mt-1 text-zinc-400'>
+                Press ESC to Canel, Enter to Save
+              </span>
+            </Form>
+          )}
         </div>
       </div>
-      {}
+      {canDeleteMessage && (
+        <div className='hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-gray-200 dark:bg-zinc-900 border rounded-sm'>
+          {canEdit && (
+            <ActionTooltip label='Edit'>
+              <Edit
+                onClick={() => setIsEditing(true)}
+                className='cursor-pointer ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400 hover:text-indigo-400 dark:hover:text-indigo-500 transition'
+              />
+            </ActionTooltip>
+          )}
+          <ActionTooltip label='Delete'>
+            <Trash2
+              onClick={() =>
+                onOpen("deleteMessage", {
+                  apiUrl: `${socketUrl}/${id}`,
+                  query: socketQuery,
+                })
+              }
+              className='cursor-pointer ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400 hover:text-rose-600 dark:hover:text-rose-600 transition'
+            />
+          </ActionTooltip>
+        </div>
+      )}
     </div>
   );
 };

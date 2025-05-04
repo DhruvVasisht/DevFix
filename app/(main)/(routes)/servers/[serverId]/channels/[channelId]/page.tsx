@@ -42,7 +42,8 @@ const ChannelIdPage = async ({params}:ChannelIdPageProps) => {
             type="channel"
             />
             <div className="flex-1">
-                <ChatMessages member={member} chatId={channel.id} name={channel.name} type="channel" apiUrl="/api/messages" socketUrl="/api/socket/messages" socketQuery={{
+                <ChatMessages member={member} chatId={channel.id} name={channel.name} type="channel" apiUrl="/api/messages" 
+                    socketUrl="/api/socket/messages" socketQuery={{
                     channelId: channel.id,
                     serverId: channel.serverId,
                 }} paramKey="channelId" paramValue={channel.id} />
