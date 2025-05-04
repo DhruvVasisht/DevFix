@@ -143,15 +143,18 @@ export const ChatMessages = ({
       </div>
       <div ref={bottomRef} />
 
-      {/* ✅ Floating Gemini Button with updated position and animation */}
       {status === "success" && (
         <>
           <button
-            onClick={() => setIsModalOpen(true)}
-            className="fixed bottom-20 right-6 bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg z-50 animate-bounce transition-all"
-          >
-            💬
-          </button>
+        onClick={() => setIsModalOpen(true)}
+        className="fixed bottom-20 right-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-full p-4 shadow-xl hover:shadow-indigo-500/30 z-50 animate-bounce transition-all duration-300 hover:scale-105 group"
+        aria-label="Open Gemini Chat"
+      >
+        <div className="relative w-6 h-6 flex items-center justify-center">
+          <span className="text-xl group-hover:rotate-12 transition-transform duration-300">💬</span>
+          <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+        </div>
+      </button>
 
           {isModalOpen && <ChatAi onClose={() => setIsModalOpen(false)} />}
         </>
