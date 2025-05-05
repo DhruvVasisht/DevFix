@@ -1,19 +1,20 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Plus} from "lucide-react";
-import axios from "axios";
-import qs from "query-string";
 import { useModal } from "@/hooks/use-modal-store";
-import { EmojiPicker } from "../emoji-picker";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import qs from "query-string";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { EmojiPicker } from "../emoji-picker";
 
 interface ChatInputProps {
   apiUrl: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   query: Record<string, any>;
   name: string;
   type: "conversation" | "channel";

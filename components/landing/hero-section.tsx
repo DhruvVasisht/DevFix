@@ -1,15 +1,15 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight, Code, MessageSquare, Video } from "lucide-react"
 
 export function HeroSection() {
-  const router = useRouter()
+  // const router = useRouter()
 
-  const handleLoginRedirect = () => {
-    router.push("/login")
-  }
+  // const handleLoginRedirect = () => {
+  //   router.push("/login")
+  // }
 
 
   return (

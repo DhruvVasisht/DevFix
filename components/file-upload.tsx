@@ -1,7 +1,7 @@
 "use client";
-import Image from "next/image";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { FileIcon, X } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 
 interface FileUploadProps {
@@ -18,6 +18,7 @@ const FileUpload = ({ onChange, value, endpoint }: FileUploadProps) => {
   // Check if the file is an image
   const isImage = value && fileType && imageTypes.includes(fileType);
   const isPdf = value && fileType === "pdf";
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [fileSelected, setFileSelected] = useState(false);
   // Render image preview
   if (value && isImage) {

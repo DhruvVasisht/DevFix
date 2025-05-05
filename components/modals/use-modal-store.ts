@@ -21,6 +21,8 @@ export const useModal = create<ModalStore>((set) => ({
   type: null,
   data: {},
   isOpen: false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   onOpen: (type, data = {}) =>{document.body.style.pointerEvents = "auto", set({ type, isOpen: true, data })},
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   onClose: () =>{ document.body.style.pointerEvents = "auto",  set({ type:null, isOpen: false, data:{} })}, // Clear data
 }));
