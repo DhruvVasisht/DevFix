@@ -4,7 +4,7 @@ import { Fragment, useRef, ElementRef, useState } from "react";
 import { format } from "date-fns";
 import { Member, Message, Profile } from "@prisma/client";
 
-import { Loader2, ServerCrash } from "lucide-react";
+import { Loader2, MessageCircleMore, ServerCrash } from "lucide-react";
 
 import { ChatWelcome } from "./chat-welcome";
 import { ChatItem } from "./chat-item";
@@ -14,7 +14,7 @@ import { useChatSocket } from "@/hooks/use-chat-socket";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
 import ChatAi from "./chat-ai";
 
-const DATE_FORMAT = "d MMM yyyy, HH:mm";
+const DATE_FORMAT = "d MMM yyyy, hh:mm a";
 
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
@@ -151,7 +151,7 @@ export const ChatMessages = ({
         aria-label="Open Gemini Chat"
       >
         <div className="relative w-6 h-6 flex items-center justify-center">
-          <span className="text-xl group-hover:rotate-12 transition-transform duration-300">💬</span>
+          <span className="text-xl group-hover:rotate-12 transition-transform duration-300"><MessageCircleMore/></span>
           <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
         </div>
       </button>

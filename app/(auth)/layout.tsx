@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Code2, Terminal } from 'lucide-react';
+import { Code2, Terminal, ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -65,34 +68,81 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
 
-      {/* Main content container */}
-      <div className="relative w-full max-w-[510px] p-8 z-10">
-        {/* Logo section with pulse animation */}
-        <div className="flex items-center justify-center mb-8 space-x-3">
-          <div className="relative">
-            <Code2 className="w-10 h-10 text-emerald-500 animate-pulse" />
-            <div className="absolute inset-0 bg-emerald-500 rounded-full filter blur-xl opacity-20 animate-ping"></div>
+      {/* Main content container - now split into two halves */}
+      <div className="relative w-full max-w-6xl p-4 md:p-8 z-10 flex flex-col lg:flex-row gap-8 items-center">
+        {/* Left half - Welcome content */}
+        <motion.div 
+          className="w-full lg:w-1/2 text-center lg:text-left"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -50 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          {/* Logo section with pulse animation */}
+          <div className="flex items-center justify-center lg:justify-start mb-8 space-x-3">
+            <div className="relative">
+              <Code2 className="w-10 h-10 text-emerald-500 animate-pulse" />
+              <div className="absolute inset-0 bg-emerald-500 rounded-full filter blur-xl opacity-20 animate-ping"></div>
+            </div>
+            <div className="relative">
+              <Terminal className="w-10 h-10 text-emerald-500 animate-pulse" />
+              <div className="absolute inset-0 bg-emerald-500 rounded-full filter blur-xl opacity-20 animate-ping"></div>
+            </div>
+            <h1 className="text-2xl font-bold text-white ml-2">DevFix</h1>
           </div>
-          <div className="relative">
-            <Terminal className="w-10 h-10 text-emerald-500 animate-pulse" />
-            <div className="absolute inset-0 bg-emerald-500 rounded-full filter blur-xl opacity-20 animate-ping"></div>
-          </div>
-        </div>
 
-        {/* Glass effect container with subtle animations */}
-        <div className={`backdrop-blur-xl bg-white/10 rounded-xl p-6 shadow-2xl border border-white/20 transition-all duration-700 ease-out ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent rounded-xl"></div>
-          <div className="relative z-10">
-            {children}
-          </div>
-        </div>
-
-        {/* Typing animation for footer text */}
-        <div className="text-center mt-6 text-sm text-gray-400 overflow-hidden">
-          <p className="inline-block typing-animation">
-            Where developers unite to solve problems
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Welcome to <span className="text-emerald-500">DevFix</span>
+          </h2>
+          
+          <p className="text-gray-300 text-lg mb-8 max-w-md mx-auto lg:mx-0">
+            Join our community of developers collaborating to solve problems, share knowledge, and build amazing projects together.
           </p>
-        </div>
+          
+          <div className="relative mb-8 p-4 border border-emerald-500/30 rounded-lg bg-emerald-500/5 max-w-md mx-auto lg:mx-0">
+            <div className="flex items-start gap-3">
+              <div className="mt-1 text-emerald-500">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-white font-medium">Structured Communication</h3>
+                <p className="text-gray-400 text-sm">Organize discussions by topics for clarity and easy access</p>
+              </div>
+            </div>
+          </div>
+          
+          <button 
+            onClick={() => router.push('/home')}
+            className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md transition-all duration-300 flex items-center justify-center gap-2 mx-auto lg:mx-0"
+          >
+            Learn More About Us
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </motion.div>
+
+        {/* Right half - Auth form */}
+        <motion.div 
+          className="w-full lg:w-1/2"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 50 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        >
+          {/* Glass effect container with subtle animations */}
+         
+            <div className="mx-12 relative z-10">
+              {children}
+            </div>
+        
+
+          {/* Typing animation for footer text */}
+          <div className="text-center mt-6 text-sm text-gray-400 overflow-hidden">
+            <p className="inline-block typing-animation">
+              Where developers unite to solve problems
+            </p>
+          </div>
+        </motion.div>
       </div>
 
       {/* Floating particles */}

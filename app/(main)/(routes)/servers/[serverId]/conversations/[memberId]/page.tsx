@@ -9,6 +9,7 @@ import { db } from "@/lib/db";
 import { ChatMessages } from "@/components/chat/chat-messages";
 import { ChatInput } from "@/components/chat/chat-input";
 import ChatHeader from "@/components/chat/chat-header";
+import { MediaRoom } from "@/components/media-room";
 
 
 interface MemberIdPageProps {
@@ -62,6 +63,13 @@ const MemberIdPage = async ({
                 serverId={resolvedParams.serverId}
                 type="conversation"
             />
+            {resolvedSearchParams.video && (
+                <MediaRoom
+                    chatId={conversation.id}
+                    video={true}
+                    audio={true}
+                />
+            )}
             {!resolvedSearchParams.video && (
                 <>
                     <ChatMessages 

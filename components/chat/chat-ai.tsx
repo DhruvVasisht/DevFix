@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { GoogleGenAI } from '@google/genai';
-import { Send, X, Loader2 } from 'lucide-react';
+import { Send, X, Loader2,  MessageCircleMore } from 'lucide-react';
 
 const ai = new GoogleGenAI({ apiKey: process.env.NEXT_PUBLIC_GEMINI_KEY });
 
@@ -65,7 +65,7 @@ export default function ChatAi({ onClose }: { onClose: () => void }) {
       <div className="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-            <span className="text-lg">💬</span>
+            <span className="text-lg"><MessageCircleMore/></span>
           </div>
           <h3 className="font-bold text-lg">Gemini Chat</h3>
         </div>
