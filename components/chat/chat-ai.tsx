@@ -20,6 +20,15 @@ export default function ChatAi({ onClose }: { onClose: () => void }) {
     scrollToBottom();
   }, [messages]);
 
+  // Add useEffect to send an initial AI message when the component mounts
+  useEffect(() => {
+    const initialMessage = {
+      sender: "ai",
+      text: "Hello! How can I help you today?",
+    };
+    setMessages([initialMessage]);
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   const sendMessage = useCallback(async () => {
     if (!input.trim()) return;
 

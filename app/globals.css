@@ -127,3 +127,30 @@ body,
     @apply bg-background text-foreground;
   }
 }
+
+/* Customized Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1e1f22; /* Scrollbar color from first line */
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #2a2b2f; /* Slightly lighter on hover */
+}
+
+/* Firefox support */
+* {
+  scrollbar-color: #1e1f22 transparent;
+  scrollbar-width: thin;
+}

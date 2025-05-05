@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Member, Profile } from "@prisma/client";
 import UserAvatar from "../user-avatar";
 import { ActionTooltip } from "../action-tooltip";
-import { ShieldCheck, ShieldAlert, FileIcon, Edit, Trash, Trash2 } from "lucide-react";
+import { ShieldCheck, ShieldAlert, FileIcon, Edit, Trash, Trash2, ShieldUser } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -35,8 +35,8 @@ interface ChatItemProps {
 }
 
 const roleIconMap = {
-  ADMIN: <ShieldAlert className="h-4 w-4 ml-2 text-rose-500" />,
-  MODERATOR: <ShieldCheck className="h-4 w-4 ml-2 text-rose-500" />,
+  ADMIN: <ShieldUser className="h-4 w-4 ml-2 text-indigo-500" />,
+  MODERATOR: <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
   GUEST: null,
 };
 

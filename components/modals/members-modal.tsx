@@ -25,7 +25,7 @@ import { useModal } from "@/hooks/use-modal-store";
 import { ServerWithMemberWithProfiles } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import UserAvatar from "@/components/user-avatar";
-import { Check, Gavel, Loader2, MoreVertical, Shield, ShieldAlert, ShieldCheck, ShieldQuestion } from "lucide-react";
+import { Check, Gavel, Loader2, MoreVertical, Shield, ShieldAlert, ShieldCheck, ShieldQuestion, ShieldUser } from "lucide-react";
 import { useState } from "react";
 import { MemberRole } from "@prisma/client";
 import axios from "axios";
@@ -39,7 +39,7 @@ const MembersModal = () => {
   const { server } = data as { server: ServerWithMemberWithProfiles };
   const roleIconMap = {
     GUEST: null,
-    ADMIN: <ShieldAlert className="h-4 w-4 text-rose-500" />,
+    ADMIN: <ShieldUser className="h-4 w-4 text-indigo-500" />,
     MODERATOR: <ShieldCheck className="h-4 w-4 text-indigo-500 ml-2" />,
   };
   
