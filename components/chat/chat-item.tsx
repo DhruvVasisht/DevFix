@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Member, Profile } from "@prisma/client";
 import UserAvatar from "../user-avatar";
 import { ActionTooltip } from "../action-tooltip";
-import { ShieldCheck, ShieldAlert, FileIcon, Edit, Trash, Trash2, ShieldUser } from "lucide-react";
+import { ShieldCheck,FileIcon, Edit, Trash2, ShieldUser } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -58,7 +58,6 @@ export const ChatItem = ({
   socketQuery,
 }: ChatItemProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const { onOpen } = useModal()
 
   const params = useParams()
