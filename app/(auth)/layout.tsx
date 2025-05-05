@@ -1,18 +1,19 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from 'react';
-import { Code2, Terminal, ArrowRight } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import type React from "react"
+import { useEffect, useState } from "react"
+import { Code2, Terminal, ArrowRight } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { motion } from "framer-motion"
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const [mounted, setMounted] = useState(false);
-  const router = useRouter();
+  const [mounted, setMounted] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
+    setMounted(true)
+    return () => setMounted(false)
+  }, [])
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f1114] via-[#1a1b1e] to-[#141518] flex items-center justify-center relative overflow-hidden">
@@ -28,10 +29,10 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
                   top: `${Math.random() * 100}%`,
                   left: `${Math.random() * 100}%`,
                   fontSize: `${Math.random() * 1 + 0.5}rem`,
-                  animation: `float ${Math.random() * 10 + 5}s infinite linear`
+                  animation: `float ${Math.random() * 10 + 5}s infinite linear`,
                 }}
               >
-                {Math.random() > 0.5 ? '{' : Math.random() > 0.5 ? '<>' : '()'}
+                {Math.random() > 0.5 ? "{" : Math.random() > 0.5 ? "<>" : "()"}
               </div>
             ))}
 
@@ -45,19 +46,19 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
                   top: `${Math.random() * 100}%`,
                   left: `${Math.random() * 100}%`,
                   transform: `rotate(${Math.random() * 20 - 10}deg)`,
-                  animation: `floatSlow ${Math.random() * 15 + 10}s infinite linear`
+                  animation: `floatSlow ${Math.random() * 15 + 10}s infinite linear`,
                 }}
               >
                 {
                   [
-                    'const app = express()',
+                    "const app = express()",
                     'import React from "react"',
-                    'function main() {',
+                    "function main() {",
                     'git commit -m "fix"',
                     '<div className="container">',
-                    'npm install',
-                    'docker build',
-                    'async/await'
+                    "npm install",
+                    "docker build",
+                    "async/await",
                   ][Math.floor(Math.random() * 8)]
                 }
               </div>
@@ -69,39 +70,50 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
 
       {/* Main content container - now split into two halves */}
-      <div className="relative w-full max-w-6xl p-4 md:p-8 z-10 flex flex-col lg:flex-row gap-8 items-center">
+      <div className="relative w-full max-w-6xl p-4 md:p-6 lg:p-8 z-10 flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 items-center">
         {/* Left half - Welcome content */}
-        <motion.div 
-          className="w-full lg:w-1/2 text-center lg:text-left"
+        <motion.div
+          className="w-full lg:w-1/2 text-center lg:text-left px-2"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -50 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
           {/* Logo section with pulse animation */}
-          <div className="flex items-center justify-center lg:justify-start mb-8 space-x-3">
+          <div className="flex items-center justify-center lg:justify-start mb-6 md:mb-8 space-x-2 md:space-x-3">
             <div className="relative">
-              <Code2 className="w-10 h-10 text-emerald-500 animate-pulse" />
+              <Code2 className="w-8 h-8 md:w-10 md:h-10 text-emerald-500 animate-pulse" />
               <div className="absolute inset-0 bg-emerald-500 rounded-full filter blur-xl opacity-20 animate-ping"></div>
             </div>
             <div className="relative">
-              <Terminal className="w-10 h-10 text-emerald-500 animate-pulse" />
+              <Terminal className="w-8 h-8 md:w-10 md:h-10 text-emerald-500 animate-pulse" />
               <div className="absolute inset-0 bg-emerald-500 rounded-full filter blur-xl opacity-20 animate-ping"></div>
             </div>
-            <h1 className="text-2xl font-bold text-white ml-2">DevFix</h1>
+            <h1 className="text-xl md:text-2xl font-bold text-white ml-2">DevFix</h1>
           </div>
 
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 md:mb-6">
             Welcome to <span className="text-emerald-500">DevFix</span>
           </h2>
-          
-          <p className="text-gray-300 text-lg mb-8 max-w-md mx-auto lg:mx-0">
-            Join our community of developers collaborating to solve problems, share knowledge, and build amazing projects together.
+
+          <p className="text-gray-300 text-base md:text-lg mb-6 md:mb-8 max-w-md mx-auto lg:mx-0">
+            Join our community of developers collaborating to solve problems, share knowledge, and build amazing
+            projects together.
           </p>
-          
-          <div className="relative mb-8 p-4 border border-emerald-500/30 rounded-lg bg-emerald-500/5 max-w-md mx-auto lg:mx-0">
+
+          <div className="relative mb-6 md:mb-8 p-3 md:p-4 border border-emerald-500/30 rounded-lg bg-emerald-500/5 max-w-md mx-auto lg:mx-0">
             <div className="flex items-start gap-3">
               <div className="mt-1 text-emerald-500">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                   <polyline points="22 4 12 14.01 9 11.01"></polyline>
                 </svg>
@@ -112,9 +124,9 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
             </div>
           </div>
-          
-          <button 
-            onClick={() => router.push('/home')}
+
+          <button
+            onClick={() => router.push("/home")}
             className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md transition-all duration-300 flex items-center justify-center gap-2 mx-auto lg:mx-0"
           >
             Learn More About Us
@@ -123,24 +135,19 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         </motion.div>
 
         {/* Right half - Auth form */}
-        <motion.div 
+        <motion.div
           className="w-full lg:w-1/2"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 50 }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           {/* Glass effect container with subtle animations */}
-         
-            <div className="mx-12 relative z-10">
-              {children}
-            </div>
-        
+
+          <div className="mx-4 sm:mx-8 lg:mx-12 relative z-10 w-full">{children}</div>
 
           {/* Typing animation for footer text */}
           <div className="text-center mt-6 text-sm text-gray-400 overflow-hidden">
-            <p className="inline-block typing-animation">
-              Where developers unite to solve problems
-            </p>
+            <p className="inline-block typing-animation">Where developers unite to solve problems</p>
           </div>
         </motion.div>
       </div>
@@ -157,7 +164,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
               opacity: Math.random() * 0.5,
-              animation: `floatParticle ${Math.random() * 20 + 10}s infinite linear`
+              animation: `floatParticle ${Math.random() * 20 + 10}s infinite linear`,
             }}
           />
         ))}
@@ -206,9 +213,21 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           from, to { border-color: transparent }
           50% { border-color: rgba(255, 255, 255, 0.5) }
         }
+
+        @media (max-width: 640px) {
+          h2 {
+            font-size: 1.75rem;
+          }
+          p {
+            font-size: 0.95rem;
+          }
+          .typing-animation {
+            font-size: 0.8rem;
+          }
+        }
       `}</style>
     </div>
-  );
-};
+  )
+}
 
-export default AuthLayout;
+export default AuthLayout
