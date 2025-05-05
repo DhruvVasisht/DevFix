@@ -2,9 +2,11 @@
 
 // import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
+import { useRouter } from 'next/navigation';
 import { ArrowRight, Code, MessageSquare, Video } from "lucide-react"
 
 export function HeroSection() {
+  const router = useRouter();
   // const router = useRouter()
 
   // const handleLoginRedirect = () => {
@@ -39,7 +41,7 @@ export function HeroSection() {
               problem-solving in the developer community.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 mt-2">
-              <button
+              <button onClick={() => router.push('/sign-in')}
                 className="px-6 py-3 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition flex items-center justify-center gap-2 font-medium"
               >
                 Get Started
