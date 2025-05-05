@@ -122,7 +122,7 @@ export function TestimonialSection() {
                 </div>
               </div>
 
-              <p className="text-muted-foreground mb-8 italic">"{testimonial.quote}"</p>
+              <p className="text-muted-foreground mb-8 italic">&quot;{testimonial.quote}&quot;</p>
 
               <div className="flex items-center gap-4">
                 <div className="h-12 w-12 rounded-full bg-gradient-to-br ${testimonial.gradient} p-0.5">

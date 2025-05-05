@@ -1,9 +1,9 @@
-import { v4 as uuidv4 } from "uuid";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
+import { v4 as uuidv4 } from "uuid";
 
-export async function PATCH(req: Request, { params }: { params: { serverId: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ serverId: string }> }) {
   try {
     const resolvedParams = await params;
     const profile = await currentProfile();

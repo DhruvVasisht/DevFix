@@ -1,11 +1,11 @@
 import { currentProfile } from "@/lib/current-profile";
-import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { MemberRole } from "@prisma/client";
+import { NextResponse } from "next/server";
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { channelId: string } }
+  { params }: { params: Promise<{ channelId: string }> }
 ) {
   try {
     const resolvedParams = await params;
@@ -53,7 +53,7 @@ export async function DELETE(
 }
 
 
-export async function PATCH(request:Request,{ params }: { params: { channelId: string } }){
+export async function PATCH(request:Request,{ params }: { params: Promise<{ channelId: string }> }){
   try {
     const resolvedParams = await params;
     const {name, type} = await request.json();

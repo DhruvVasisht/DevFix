@@ -1,23 +1,22 @@
 "use client";
 
-import * as z from 'zod'
-import axios from 'axios'
-import { useForm } from 'react-hook-form'
-import qs from 'query-string'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Member, Profile } from "@prisma/client";
-import UserAvatar from "../user-avatar";
-import { ActionTooltip } from "../action-tooltip";
-import { ShieldCheck,FileIcon, Edit, Trash2, ShieldUser } from "lucide-react";
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useModal } from '@/hooks/use-modal-store';
 import { cn } from "@/lib/utils";
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { useModal } from '@/hooks/use-modal-store'
-import { useRouter } from 'next/navigation';
-import { useParams } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Member, Profile } from "@prisma/client";
+import axios from 'axios';
+import { Edit, FileIcon, ShieldCheck, ShieldUser, Trash2 } from "lucide-react";
+import Image from "next/image";
+import { useParams, useRouter } from 'next/navigation';
+import qs from 'query-string';
+import { useEffect, useState } from "react";
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+import { ActionTooltip } from "../action-tooltip";
+import UserAvatar from "../user-avatar";
 
 interface ChatItemProps {
   id: string;
@@ -98,7 +97,7 @@ export const ChatItem = ({
   
 
   useEffect(() => {
-    const handleKeyDown = (event: any) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape' || event.keyCode === 27) {
         setIsEditing(false)
       }
@@ -106,7 +105,7 @@ export const ChatItem = ({
 
     window.addEventListener('keydown', handleKeyDown)
 
-    return () => window.removeEventListener('keyDown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
 
@@ -114,7 +113,7 @@ export const ChatItem = ({
     form.reset({
       content: content,
     })
-  }, [content])
+  }, [content, form])
 
 
 
