@@ -314,8 +314,8 @@ export function HeroSection() {
                         message: "Welcome to DevFix! This is where developers collaborate.",
                       },
                       {
-                        name: "Dynamic Dudes",
-                        avatar: "DD",
+                        name: "Tanay Das",
+                        avatar: "TD",
                         color: "bg-blue-500",
                         time: "10:32 PM",
                         message: "Thanks for the invite! Looking forward to working together.",
