@@ -67,7 +67,7 @@ export default function ChatAi({ onClose }: { onClose: () => void }) {
           <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
             <span className="text-lg"><MessageCircleMore/></span>
           </div>
-          <h3 className="font-semibold text-lg">Gemini Chat</h3>
+          <h3 className="font-semibold text-lg">Jarvis</h3>
         </div>
         <button 
           onClick={onClose} 
