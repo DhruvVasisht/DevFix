@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
-import { ArrowRight, Hash, Plus, Search, Settings, Bell, Pin, MessageSquare } from "lucide-react"
+import { ArrowRight, Hash, Plus, Search, Bell, Pin, MessageSquare } from "lucide-react"
 import { useTheme } from "next-themes"
 
 export function HeroSection() {
