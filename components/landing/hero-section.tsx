@@ -298,7 +298,7 @@ export function HeroSection() {
                       <div
                         className={`${isDarkTheme ? "bg-[#383a40]" : "bg-[#f2f3f5]"} rounded-md px-2 py-1 flex items-center`}
                       >
-                        <span className="text-emerald-400 text-xs font-medium">Live: Real-time updates</span>
+                        <span className= "hidden md:inline text-emerald-400 text-xs font-medium">Live: Real-time updates</span>
                       </div>
                     </div>
                   </div>
@@ -346,7 +346,7 @@ export function HeroSection() {
                             <span className={`font-medium ${isDarkTheme ? "text-white" : "text-gray-800"}`}>
                               {msg.name}
                             </span>
-                            <span className={`ml-2 text-xs ${isDarkTheme ? "text-gray-400" : "text-gray-500"}`}>
+                            <span className={`hidden md:inline ml-2 text-xs ${isDarkTheme ? "text-gray-400" : "text-gray-500"}`}>
                               Today at {msg.time}
                             </span>
                           </div>
