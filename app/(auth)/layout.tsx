@@ -136,14 +136,14 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
         {/* Right half - Auth form */}
         <motion.div
-          className="w-full lg:w-1/2"
+          className="w-full lg:w-1/2 flex flex-col justify-center items-center "
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 50 }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           {/* Glass effect container with subtle animations */}
 
-          <div className="mx-4 sm:mx-8 lg:mx-12 relative z-10 w-full">{children}</div>
+          <div className="mx-4 sm:mx-8 lg:mx-12 relative z-10 w-full flex  justify-center items-center">{children}</div>
 
           {/* Typing animation for footer text */}
           <div className="text-center mt-6 text-sm text-gray-400 overflow-hidden">
