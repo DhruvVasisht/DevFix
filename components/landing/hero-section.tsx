@@ -271,15 +271,7 @@ export function HeroSection() {
                         <span className={`${isDarkTheme ? "text-white" : "text-gray-800"} text-sm font-medium`}>
                           Dhruv
                         </span>
-                        <span className={`${isDarkTheme ? "text-gray-400" : "text-gray-500"} text-xs`}>#1234</span>
                       </div>
-                    </div>
-                    <div className="flex space-x-1">
-                      <button
-                        className={`h-8 w-8 rounded-md ${isDarkTheme ? "hover:bg-[#35373c]" : "hover:bg-[#d4d6d9]"} flex items-center justify-center ${isDarkTheme ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-800"}`}
-                      >
-                        <Settings className="h-5 w-5" />
-                      </button>
                     </div>
                   </div>
                 </div>

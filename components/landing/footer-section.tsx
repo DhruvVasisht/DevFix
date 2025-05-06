@@ -38,6 +38,7 @@ export function FooterSection() {
   ]
 
   return (
+    <section id="aboutUs">
     <footer className="bg-background border-t">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between gap-8">
@@ -116,6 +117,8 @@ export function FooterSection() {
           </div>
         </div>
       </div>
-    </footer>
+   
+   </footer>
+   </section>
   )
 }

@@ -14,7 +14,7 @@ const font = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'DevFix',
+  title: 'DevFix: Leading Developer Collaboration Platform',
   description: 'Created By Dhruv Vasisht',
   icons: {
     icon: '/DevFix.ico',

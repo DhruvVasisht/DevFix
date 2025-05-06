@@ -6,8 +6,8 @@ export function TestimonialSection() {
   const testimonials = [
     {
       quote: "DevFix has completely transformed how our remote team collaborates on complex coding problems.",
-      author: "Sarah Chen",
-      role: "Senior Developer at TechCorp",
+      author: "Namit Dhupar",
+      role: "Senior React Developer at Conxai",
       avatar: "/placeholder.svg?height=80&width=80",
       delay: 0.1,
       gradient: "from-emerald-500/20 to-blue-500/20",
@@ -15,16 +15,16 @@ export function TestimonialSection() {
     {
       quote:
         "The structured channels and real-time communication features have made our development process twice as efficient.",
-      author: "Michael Rodriguez",
-      role: "CTO at StartupX",
+      author: "Asheesh Sahu",
+      role: "Software Engineer at SPNX",
       avatar: "/placeholder.svg?height=80&width=80",
       delay: 0.2,
       gradient: "from-blue-500/20 to-purple-500/20",
     },
     {
       quote: "As a team lead, the moderation tools help me maintain a productive environment for all developers.",
-      author: "Jamal Washington",
-      role: "Engineering Manager at DevSolutions",
+      author: "Meyank Singh",
+      role: "Founding Engineer at CryptoTech",
       avatar: "/placeholder.svg?height=80&width=80",
       delay: 0.3,
       gradient: "from-purple-500/20 to-pink-500/20",
