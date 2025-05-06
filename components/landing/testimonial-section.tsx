@@ -24,7 +24,7 @@ export function TestimonialSection() {
     {
       quote: "As a team lead, the moderation tools help me maintain a productive environment for all developers.",
       author: "Meyank Singh",
-      role: "Founding Engineer at CryptoTech",
+      role: "Founding Engineer at PayCrypt",
       avatar: "/placeholder.svg?height=80&width=80",
       delay: 0.3,
       gradient: "from-purple-500/20 to-pink-500/20",
