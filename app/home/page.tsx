@@ -35,8 +35,8 @@ export default function LandingPage() {
           <Link href="#testimonials" className="text-sm font-medium hover:text-emerald-500 transition-colors">
             Testimonials
           </Link>
-          <Link href="#pricing" className="text-sm font-medium hover:text-emerald-500 transition-colors">
-            Pricing
+          <Link href="#aboutUs" className="text-sm font-medium hover:text-emerald-500 transition-colors">
+            About Us
           </Link>
           <Link href="/sign-in" className="text-sm font-medium hover:text-emerald-500 transition-colors">
             Login

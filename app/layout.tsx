@@ -16,6 +16,9 @@ const font = Open_Sans({
 export const metadata: Metadata = {
   title: 'DevFix',
   description: 'Created By Dhruv Vasisht',
+  icons: {
+    icon: '/DevFix.ico',
+  }
 };
 
 export default function RootLayout({
