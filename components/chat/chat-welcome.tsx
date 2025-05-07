@@ -76,7 +76,7 @@ export const ChatWelcome = ({ name, type }: ChatWelcomeProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <h2 className="text-3xl font-bold mb-2 flex items-center justify-center gap-2">
+          <h2 className="md:text-2xl text-xl font-bold mb-2 flex items-center justify-center gap-2">
             {type === "channel" ? (
               <>
                 Welcome to <span className="text-emerald-500">#{name}</span>
@@ -120,14 +120,14 @@ export const ChatWelcome = ({ name, type }: ChatWelcomeProps) => {
               <li className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                 {type === "channel" 
-                  ? "Use # to mention channels" 
-                  : "Share code snippets with ```code```"}
+                  ? "Maintain professional communication and avoid inappropriate content" 
+                  : "Maintain professional communication and avoid inappropriate content"}
               </li>
               <li className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                 {type === "channel" 
-                  ? "Use @ to mention members" 
-                  : "Send files by dragging and dropping"}
+                  ? "Report any inappropriate behavior to Moderators" 
+                  : "Report any inappropriate behavior and keep DMs respectful"}
               </li>
               <li className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
