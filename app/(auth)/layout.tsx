@@ -17,14 +17,14 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0f1114] via-[#1a1b1e] to-[#141518] flex items-center justify-center relative overflow-hidden">
-      {/* Animated code elements background */}
+      {/* Animated code elements background - REDUCED FOR MOBILE */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -inset-[10px] opacity-50">
           {mounted &&
-            Array.from({ length: 30 }).map((_, i) => (
+            Array.from({ length: 15 }).map((_, i) => (
               <div
                 key={i}
-                className="absolute text-emerald-500/20 transform rotate-3"
+                className="absolute text-emerald-500/20 transform rotate-3 hidden md:block"
                 style={{
                   top: `${Math.random() * 100}%`,
                   left: `${Math.random() * 100}%`,
@@ -36,12 +36,12 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
               </div>
             ))}
 
-          {/* Code snippets */}
+          {/* Code snippets - HIDDEN ON MOBILE */}
           {mounted &&
-            Array.from({ length: 15 }).map((_, i) => (
+            Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={`code-${i}`}
-                className="absolute text-emerald-500/10 font-mono text-xs whitespace-nowrap"
+                className="absolute text-emerald-500/10 font-mono text-xs whitespace-nowrap hidden md:block"
                 style={{
                   top: `${Math.random() * 100}%`,
                   left: `${Math.random() * 100}%`,
@@ -69,11 +69,11 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
 
-      {/* Main content container - now split into two halves */}
+      {/* Main content container - now with conditional rendering for mobile */}
       <div className="relative w-full max-w-6xl p-4 md:p-6 lg:p-8 z-10 flex flex-col lg:flex-row gap-4 md:gap-6 lg:gap-8 items-center">
-        {/* Left half - Welcome content */}
+        {/* Left half - Welcome content - HIDDEN ON SMALL SCREENS WHEN AUTH FORM IS PRESENT */}
         <motion.div
-          className="w-full lg:w-1/2 text-center lg:text-left px-2"
+          className="w-full lg:w-1/2 text-center lg:text-left px-2 hidden md:block"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : -50 }}
           transition={{ duration: 0.7, delay: 0.2 }}
@@ -134,42 +134,72 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           </button>
         </motion.div>
 
+        {/* Mobile logo and intro - ONLY VISIBLE ON SMALL SCREENS */}
+        <motion.div
+          className="flex flex-col md:hidden items-center justify-center mb-4 space-y-3"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : -20 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="flex items-center space-x-2">
+            <div className="relative">
+              <Code2 className="w-8 h-8 text-emerald-500" />
+              <div className="absolute inset-0 bg-emerald-500 rounded-full filter blur-xl opacity-20 animate-ping"></div>
+            </div>
+            <h1 className="text-xl font-bold text-white ml-2">DevFix</h1>
+          </div>
+          <p className="text-gray-300 text-sm text-center max-w-xs">Where developers collaborate to solve problems</p>
+        </motion.div>
+
         {/* Right half - Auth form */}
         <motion.div
-          className="w-full lg:w-1/2 flex flex-col justify-center items-center "
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 50 }}
+          className="w-full md:w-3/4 lg:w-1/2 flex flex-col justify-center items-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           {/* Glass effect container with subtle animations */}
+          <div className="w-full max-w-md mx-auto relative z-10 flex justify-center items-center">{children}</div>
 
-          <div className="mx-4 sm:mx-8 lg:mx-12 relative z-10 w-full flex  justify-center items-center">{children}</div>
+          {/* Mobile Learn More button */}
+          <motion.button
+            onClick={() => router.push("/home")}
+            className="mt-6 px-5 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-md transition-all duration-300 flex md:hidden items-center justify-center gap-2 mx-auto"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 10 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Learn More About Us
+            <ArrowRight className="h-4 w-4" />
+          </motion.button>
 
-          {/* Typing animation for footer text */}
-          <div className="text-center mt-6 text-sm text-gray-400 overflow-hidden">
-            <p className="inline-block typing-animation">Where developers unite to solve problems</p>
+          {/* Typing animation for footer text - SIMPLIFIED FOR MOBILE */}
+          <div className="text-center mt-4 md:mt-6 text-sm text-gray-400 overflow-hidden">
+            <p className="inline-block typing-animation">Where developers unite</p>
           </div>
         </motion.div>
       </div>
 
-      {/* Floating particles */}
+      {/* Floating particles - REDUCED FOR MOBILE */}
       {mounted &&
-        Array.from({ length: 20 }).map((_, i) => (
+        Array.from({ length: 10 }).map((_, i) => (
           <div
             key={`particle-${i}`}
-            className="absolute rounded-full bg-emerald-500"
+            className={`absolute rounded-full bg-emerald-500 ${i > 5 ? "hidden md:block" : ""}`}
             style={{
-              width: `${Math.random() * 4 + 1}px`,
-              height: `${Math.random() * 4 + 1}px`,
+              width: `${Math.random() * 3 + 1}px`,
+              height: `${Math.random() * 3 + 1}px`,
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.5,
-              animation: `floatParticle ${Math.random() * 20 + 10}s infinite linear`,
+              opacity: Math.random() * 0.4,
+              animation: `floatParticle ${Math.random() * 15 + 10}s infinite linear`,
             }}
           />
         ))}
 
-      {/* Global styles */}
+      {/* Global styles - OPTIMIZED ANIMATIONS */}
       <style jsx global>{`
         @keyframes float {
           0% { transform: translate(0, 0) rotate(0deg); }
@@ -185,9 +215,9 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
 
         @keyframes floatParticle {
           0% { transform: translate(0, 0); opacity: 0; }
-          25% { opacity: 0.5; }
-          50% { transform: translate(100px, -100px); opacity: 0.2; }
-          75% { opacity: 0.5; }
+          25% { opacity: 0.3; }
+          50% { transform: translate(50px, -50px); opacity: 0.1; }
+          75% { opacity: 0.3; }
           100% { transform: translate(0, 0); opacity: 0; }
         }
 
@@ -201,7 +231,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
           border-right: 2px solid rgba(255, 255, 255, 0.5);
           white-space: nowrap;
           overflow: hidden;
-          animation: typing 4s steps(40) 1s 1 normal both, blink-caret 0.75s step-end infinite;
+          animation: typing 3s steps(20) 1s 1 normal both, blink-caret 0.75s step-end infinite;
         }
 
         @keyframes typing {
@@ -215,14 +245,9 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         }
 
         @media (max-width: 640px) {
-          h2 {
-            font-size: 1.75rem;
-          }
-          p {
-            font-size: 0.95rem;
-          }
           .typing-animation {
             font-size: 0.8rem;
+            animation: typing 2s steps(15) 0.5s 1 normal both, blink-caret 0.75s step-end infinite;
           }
         }
       `}</style>
