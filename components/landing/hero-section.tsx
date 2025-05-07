@@ -4,16 +4,25 @@ import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight, Hash, Plus, Search, Bell, Pin, MessageSquare } from "lucide-react"
 import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 
 export function HeroSection() {
   const router = useRouter()
+  const { theme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  // This ensures we only render theme-dependent UI after hydration
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleLoginRedirect = () => {
     router.push("/login")
   }
 
-  const { theme } = useTheme()
-  const isDarkTheme = theme === "dark"
+  // Use resolvedTheme which gives the actual theme (not "system")
+  // Only check theme after component has mounted to avoid hydration mismatch
+  const isDarkTheme = mounted && (resolvedTheme === "dark" || theme === "dark")
 
   return (
     <section className="relative overflow-hidden py-20 md:py-32 bg-gradient-to-b from-background to-muted/50">
@@ -103,13 +112,11 @@ export function HeroSection() {
               </motion.button>
             </motion.div>
             <motion.div
-              className="flex items-center gap-4 text-sm text-muted-foreground mt-2"
+              className="flex items-center gap-2 text-sm text-muted-foreground mt-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.9 }}
             >
-              <div className="flex ">
-              </div>
               <div className="h-2.5 w-2.5 rounded-full bg-emerald-500"></div>
               <span>Where ideas come to life</span>
             </motion.div>
@@ -194,18 +201,32 @@ export function HeroSection() {
                       </div>
 
                       <div className="space-y-0.5">
-                        <div className="flex items-center px-2 py-1 rounded bg-[#35373c] group cursor-pointer">
-                          <Hash className="h-4 w-4 mr-1.5 text-white" />
-                          <span className="text-white text-sm">general</span>
+                        <div
+                          className={`flex items-center px-2 py-1 rounded ${isDarkTheme ? "bg-[#35373c]" : "bg-[#d4d6d9]"} group cursor-pointer`}
+                        >
+                          <Hash className={`h-4 w-4 mr-1.5 ${isDarkTheme ? "text-white" : "text-gray-800"}`} />
+                          <span className={`${isDarkTheme ? "text-white" : "text-gray-800"} text-sm`}>general</span>
                           <div className="ml-auto flex items-center space-x-1 opacity-0 group-hover:opacity-100">
-                            <Bell className="h-4 w-4 text-gray-400 hover:text-white" />
-                            <Pin className="h-4 w-4 text-gray-400 hover:text-white" />
+                            <Bell
+                              className={`h-4 w-4 ${isDarkTheme ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-800"}`}
+                            />
+                            <Pin
+                              className={`h-4 w-4 ${isDarkTheme ? "text-gray-400 hover:text-white" : "text-gray-500 hover:text-gray-800"}`}
+                            />
                           </div>
                         </div>
 
-                        <div className="flex items-center px-2 py-1 rounded hover:bg-[#35373c] group cursor-pointer">
-                          <Hash className="h-4 w-4 mr-1.5 text-gray-400 group-hover:text-white" />
-                          <span className="text-gray-300 group-hover:text-white text-sm">code-with-me</span>
+                        <div
+                          className={`flex items-center px-2 py-1 rounded ${isDarkTheme ? "hover:bg-[#35373c]" : "hover:bg-[#d4d6d9]"} group cursor-pointer`}
+                        >
+                          <Hash
+                            className={`h-4 w-4 mr-1.5 ${isDarkTheme ? "text-gray-400 group-hover:text-white" : "text-gray-500 group-hover:text-gray-800"}`}
+                          />
+                          <span
+                            className={`${isDarkTheme ? "text-gray-300 group-hover:text-white" : "text-gray-600 group-hover:text-gray-800"} text-sm`}
+                          >
+                            code-with-me
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -217,9 +238,17 @@ export function HeroSection() {
                       </div>
 
                       <div className="space-y-0.5">
-                        <div className="flex items-center px-2 py-1 rounded hover:bg-[#35373c] group cursor-pointer">
-                          <MessageSquare className="h-4 w-4 mr-1.5 text-gray-400 group-hover:text-white" />
-                          <span className="text-gray-300 group-hover:text-white text-sm">talk-with-me</span>
+                        <div
+                          className={`flex items-center px-2 py-1 rounded ${isDarkTheme ? "hover:bg-[#35373c]" : "hover:bg-[#d4d6d9]"} group cursor-pointer`}
+                        >
+                          <MessageSquare
+                            className={`h-4 w-4 mr-1.5 ${isDarkTheme ? "text-gray-400 group-hover:text-white" : "text-gray-500 group-hover:text-gray-800"}`}
+                          />
+                          <span
+                            className={`${isDarkTheme ? "text-gray-300 group-hover:text-white" : "text-gray-600 group-hover:text-gray-800"} text-sm`}
+                          >
+                            talk-with-me
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -231,9 +260,17 @@ export function HeroSection() {
                       </div>
 
                       <div className="space-y-0.5">
-                        <div className="flex items-center px-2 py-1 rounded hover:bg-[#35373c] group cursor-pointer">
-                          <MessageSquare className="h-4 w-4 mr-1.5 text-gray-400 group-hover:text-white" />
-                          <span className="text-gray-300 group-hover:text-white text-sm">dungeon</span>
+                        <div
+                          className={`flex items-center px-2 py-1 rounded ${isDarkTheme ? "hover:bg-[#35373c]" : "hover:bg-[#d4d6d9]"} group cursor-pointer`}
+                        >
+                          <MessageSquare
+                            className={`h-4 w-4 mr-1.5 ${isDarkTheme ? "text-gray-400 group-hover:text-white" : "text-gray-500 group-hover:text-gray-800"}`}
+                          />
+                          <span
+                            className={`${isDarkTheme ? "text-gray-300 group-hover:text-white" : "text-gray-600 group-hover:text-gray-800"} text-sm`}
+                          >
+                            dungeon
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -244,18 +281,30 @@ export function HeroSection() {
                       </div>
 
                       <div className="space-y-1">
-                        <div className="flex items-center px-1 py-1 rounded hover:bg-[#35373c] group cursor-pointer">
+                        <div
+                          className={`flex items-center px-1 py-1 rounded ${isDarkTheme ? "hover:bg-[#35373c]" : "hover:bg-[#d4d6d9]"} group cursor-pointer`}
+                        >
                           <div className="h-8 w-8 rounded-full bg-orange-500 mr-2 flex items-center justify-center text-white text-xs font-bold">
                             DV
                           </div>
-                          <span className="text-gray-300 group-hover:text-white text-sm">Dhruv Vasisht</span>
+                          <span
+                            className={`${isDarkTheme ? "text-gray-300 group-hover:text-white" : "text-gray-600 group-hover:text-gray-800"} text-sm`}
+                          >
+                            Dhruv Vasisht
+                          </span>
                         </div>
 
-                        <div className="flex items-center px-1 py-1 rounded hover:bg-[#35373c] group cursor-pointer">
+                        <div
+                          className={`flex items-center px-1 py-1 rounded ${isDarkTheme ? "hover:bg-[#35373c]" : "hover:bg-[#d4d6d9]"} group cursor-pointer`}
+                        >
                           <div className="h-8 w-8 rounded-full bg-blue-500 mr-2 flex items-center justify-center text-white text-xs font-bold">
                             TD
                           </div>
-                          <span className="text-gray-300 group-hover:text-white text-sm">Tanay Das</span>
+                          <span
+                            className={`${isDarkTheme ? "text-gray-300 group-hover:text-white" : "text-gray-600 group-hover:text-gray-800"} text-sm`}
+                          >
+                            Tanay Das
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -290,7 +339,9 @@ export function HeroSection() {
                       <div
                         className={`${isDarkTheme ? "bg-[#383a40]" : "bg-[#f2f3f5]"} rounded-md px-2 py-1 flex items-center`}
                       >
-                        <span className= "hidden md:inline text-emerald-400 text-xs font-medium">Live: Real-time updates</span>
+                        <span className="hidden md:inline text-emerald-400 text-xs font-medium">
+                          Live: Real-time updates
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -338,7 +389,9 @@ export function HeroSection() {
                             <span className={`font-medium ${isDarkTheme ? "text-white" : "text-gray-800"}`}>
                               {msg.name}
                             </span>
-                            <span className={`hidden md:inline ml-2 text-xs ${isDarkTheme ? "text-gray-400" : "text-gray-500"}`}>
+                            <span
+                              className={`hidden md:inline ml-2 text-xs ${isDarkTheme ? "text-gray-400" : "text-gray-500"}`}
+                            >
                               Today at {msg.time}
                             </span>
                           </div>
@@ -411,6 +464,29 @@ export function HeroSection() {
           </motion.div>
         </div>
       </div>
+      {/* Chat Button */}
+      <motion.button
+        className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2 }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+      </motion.button>
     </section>
   )
 }
