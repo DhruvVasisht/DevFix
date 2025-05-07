@@ -4,17 +4,44 @@ import { useRouter } from "next/navigation"
 import { motion } from "framer-motion"
 import { ArrowRight, Hash, Plus, Search, Bell, Pin, MessageSquare } from "lucide-react"
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 export function HeroSection() {
   const router = useRouter()
   const { theme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+  const headingRef = useRef<HTMLHeadingElement>(null)
 
-  // This ensures we only render theme-dependent UI after hydration
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Fix for mobile scroll issue - use IntersectionObserver
+  useEffect(() => {
+    if (!headingRef.current) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If the heading is visible, ensure it's displayed properly
+          if (entry.isIntersecting) {
+            if (headingRef.current) {
+              headingRef.current.style.opacity = "1"
+              headingRef.current.style.transform = "translateY(0)"
+            }
+          }
+        })
+      },
+      { threshold: 0.1 }, // Trigger when at least 10% of the element is visible
+    )
+
+    observer.observe(headingRef.current)
+
+    return () => {
+      if (headingRef.current) observer.unobserve(headingRef.current)
+    }
+  }, [mounted])
 
   const handleLoginRedirect = () => {
     router.push("/login")
@@ -25,7 +52,10 @@ export function HeroSection() {
   const isDarkTheme = mounted && (resolvedTheme === "dark" || theme === "dark")
 
   return (
-    <section className="relative overflow-hidden py-20 md:py-32 bg-gradient-to-b from-background to-muted/50">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden py-20 md:py-32 bg-gradient-to-b from-background to-muted/50"
+    >
       <div className="absolute inset-0 bg-grid-pattern opacity-5 dark:opacity-10" />
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -50,11 +80,14 @@ export function HeroSection() {
               </span>
               Now in public beta
             </motion.div>
+
             <motion.h1
+              ref={headingRef}
               className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
+              style={{ willChange: "opacity, transform" }} // Optimize for animations
             >
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
@@ -74,6 +107,7 @@ export function HeroSection() {
                 <span className="text-emerald-500">Solve</span>
               </motion.span>
             </motion.h1>
+
             <motion.p
               className="text-lg text-muted-foreground max-w-md"
               initial={{ opacity: 0 }}
@@ -83,6 +117,7 @@ export function HeroSection() {
               DevFix is your all-in-one platform for structured communication, real-time collaboration, and efficient
               problem-solving in the developer community.
             </motion.p>
+
             <motion.div
               className="flex flex-col sm:flex-row gap-4 mt-2"
               initial={{ opacity: 0, y: 20 }}
@@ -103,6 +138,7 @@ export function HeroSection() {
                   <ArrowRight className="h-4 w-4" />
                 </motion.div>
               </motion.button>
+
               <motion.button
                 className="px-6 py-3 bg-background border border-input rounded-md hover:bg-accent transition flex items-center justify-center gap-2 font-medium"
                 whileHover={{ scale: 1.05 }}
@@ -111,6 +147,7 @@ export function HeroSection() {
                 Watch Demo
               </motion.button>
             </motion.div>
+
             <motion.div
               className="flex items-center gap-2 text-sm text-muted-foreground mt-2"
               initial={{ opacity: 0 }}
@@ -121,6 +158,7 @@ export function HeroSection() {
               <span>Where ideas come to life</span>
             </motion.div>
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
