@@ -93,7 +93,7 @@ export default function ChatAi({ onClose }: { onClose: () => void }) {
           >
             {msg.sender === "ai" && (
               <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                <span className="text-white text-xs">G</span>
+                <span className="text-white text-xs">J</span>
               </div>
             )}
             
@@ -118,7 +118,7 @@ export default function ChatAi({ onClose }: { onClose: () => void }) {
         {loading && (
           <div className="flex justify-start animate-fadeIn">
             <div className="w-6 h-6 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center mr-2 mt-1">
-              <span className="text-white text-xs">G</span>
+              <span className="text-white text-xs">J</span>
             </div>
             <div className="px-4 py-3 rounded-2xl bg-white dark:bg-zinc-800 text-gray-800 dark:text-gray-200 rounded-tl-none border border-gray-200 dark:border-zinc-700">
               <Loader2 className="h-4 w-4 animate-spin text-indigo-500" />

@@ -224,7 +224,7 @@ export const ChatMessages = ({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.4 }}
         >
-          We couldn't load your messages. Please check your connection and try again.
+          We couldn&apos;t load your messages. Please check your connection and try again.
         </motion.p>
         <motion.button
           className="mt-4 px-4 py-2 bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 rounded-md text-sm font-medium transition"

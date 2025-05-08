@@ -21,14 +21,15 @@ export function HeroSection() {
   useEffect(() => {
     if (!headingRef.current) return
 
+    const node = headingRef.current;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           // If the heading is visible, ensure it's displayed properly
           if (entry.isIntersecting) {
-            if (headingRef.current) {
-              headingRef.current.style.opacity = "1"
-              headingRef.current.style.transform = "translateY(0)"
+            if (node) {
+              node.style.opacity = "1"
+              node.style.transform = "translateY(0)"
             }
           }
         })
@@ -36,10 +37,10 @@ export function HeroSection() {
       { threshold: 0.1 }, // Trigger when at least 10% of the element is visible
     )
 
-    observer.observe(headingRef.current)
+    observer.observe(node)
 
     return () => {
-      if (headingRef.current) observer.unobserve(headingRef.current)
+      if (node) observer.unobserve(node)
     }
   }, [mounted])
 
