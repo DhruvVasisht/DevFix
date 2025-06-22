@@ -89,7 +89,7 @@ export default function BlogPage() {
           <div className="text-center mt-16">
             <h2 className="text-2xl font-semibold mb-4">Want to contribute?</h2>
             <p className="text-muted-foreground mb-6">
-              We're always looking for guest writers and community contributors to share their expertise.
+              We&apos;re always looking for guest writers and community contributors to share their expertise.
             </p>
             <Link 
               href="/contact"

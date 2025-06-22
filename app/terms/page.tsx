@@ -94,7 +94,7 @@ export default function TermsPage() {
             <section>
               <h2 className="text-2xl font-semibold mb-4">8. Disclaimer</h2>
               <p className="text-muted-foreground mb-4">
-                DevFix is provided "as is" without any representations or warranties. We do not guarantee 
+                DevFix is provided &quot;as is&quot; without any representations or warranties. We do not guarantee 
                 that the service will be uninterrupted or error-free.
               </p>
             </section>

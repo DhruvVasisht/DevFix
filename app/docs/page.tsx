@@ -115,7 +115,7 @@ export default function DocsPage() {
                   </Link>
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Learn how to create and configure your development team's server
+                  Learn how to create and configure your development team&apos;s server
                 </p>
               </div>
 
@@ -152,7 +152,7 @@ export default function DocsPage() {
           <div className="text-center">
             <h2 className="text-2xl font-semibold mb-4">Need help?</h2>
             <p className="text-muted-foreground mb-6">
-              Can't find what you're looking for? Our support team is here to help.
+              Can&apos;t find what you&apos;re looking for? Our support team is here to help.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
