@@ -107,7 +107,7 @@ export default function AboutPage() {
               <h2 className="text-2xl font-semibold mb-4">Why DevFix?</h2>
               <div className="bg-gradient-to-r from-emerald-500/10 to-blue-500/10 p-6 rounded-lg">
                 <p className="text-muted-foreground leading-relaxed">
-                  We're not just another chat app. DevFix is designed specifically for the developer workflow, 
+                  We&apos;re not just another chat app. DevFix is designed specifically for the developer workflow, 
                   with features like structured problem-solving channels, AI-powered code assistance, integrated 
                   screen sharing, and tools that understand how developers think and work. Join us in building 
                   the future of developer collaboration.
@@ -118,7 +118,7 @@ export default function AboutPage() {
             <section className="text-center">
               <h2 className="text-2xl font-semibold mb-4">Ready to Join Us?</h2>
               <p className="text-muted-foreground mb-6">
-                Be part of a community that's shaping the future of developer collaboration.
+                Be part of a community that&apos;s shaping the future of developer collaboration.
               </p>
               <Link 
                 href="/sign-in"
