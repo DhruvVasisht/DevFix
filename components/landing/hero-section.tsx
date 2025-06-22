@@ -5,11 +5,13 @@ import { motion } from "framer-motion"
 import { ArrowRight, Hash, Plus, Search, Bell, Pin, MessageSquare } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState, useRef } from "react"
+import { VideoModal } from "../video-modal"
 
 export function HeroSection() {
   const router = useRouter()
   const { theme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
 
@@ -141,6 +143,7 @@ export function HeroSection() {
               </motion.button>
 
               <motion.button
+                onClick={() => setIsVideoModalOpen(true)}
                 className="px-6 py-3 bg-background border border-input rounded-md hover:bg-accent transition flex items-center justify-center gap-2 font-medium"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -503,6 +506,12 @@ export function HeroSection() {
           </motion.div>
         </div>
       </div>
+
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoSrc="/DevFix-Demo.mp4"
+      />
     </section>
   )
 }

@@ -9,32 +9,32 @@ export function FooterSection() {
     {
       title: "Product",
       links: [
-        { name: "Features", href: "#" },
-        { name: "Pricing", href: "#" },
-        { name: "Documentation", href: "#" },
+        { name: "Features", href: "/#features" },
+        { name: "Pricing", href: "/pricing" },
+        { name: "Documentation", href: "/docs" },
       ],
     },
-    {
-      title: "Company",
-      links: [
-        { name: "About", href: "#" },
-        { name: "Blog", href: "#" },
-        { name: "Contact", href: "#" },
-      ],
-    },
+          {
+        title: "Company",
+        links: [
+          { name: "About", href: "/about" },
+          { name: "Blog", href: "/blog" },
+          { name: "Contact", href: "/contact" },
+        ],
+      },
     {
       title: "Legal",
       links: [
-        { name: "Privacy", href: "#" },
-        { name: "Terms", href: "#" },
+        { name: "Privacy", href: "/privacy" },
+        { name: "Terms", href: "/terms" },
       ],
     },
   ]
 
   const socialLinks = [
-    { icon: <Github className="h-4 w-4" />, href: "#", name: "GitHub" },
-    { icon: <Twitter className="h-4 w-4" />, href: "#", name: "Twitter" },
-    { icon: <Linkedin className="h-4 w-4" />, href: "#", name: "LinkedIn" },
+    { icon: <Github className="h-4 w-4" />, href: "https://github.com", name: "GitHub" },
+    { icon: <Twitter className="h-4 w-4" />, href: "https://twitter.com", name: "Twitter" },
+    { icon: <Linkedin className="h-4 w-4" />, href: "https://linkedin.com", name: "LinkedIn" },
   ]
 
   return (
@@ -71,6 +71,8 @@ export function FooterSection() {
                 <Link
                   key={index}
                   href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="h-8 w-8 rounded-full bg-muted/50 hover:bg-emerald-500/10 hover:text-emerald-500 flex items-center justify-center transition-colors"
                   aria-label={link.name}
                 >
@@ -108,10 +110,10 @@ export function FooterSection() {
         <div className="border-t mt-6 pt-6 flex flex-col md:flex-row justify-between items-center">
           <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} DevFix. All rights reserved.</p>
           <div className="flex gap-4 mt-3 md:mt-0">
-            <Link href="#" className="text-xs text-muted-foreground hover:text-emerald-500 transition-colors">
+            <Link href="/privacy" className="text-xs text-muted-foreground hover:text-emerald-500 transition-colors">
               Privacy
             </Link>
-            <Link href="#" className="text-xs text-muted-foreground hover:text-emerald-500 transition-colors">
+            <Link href="/terms" className="text-xs text-muted-foreground hover:text-emerald-500 transition-colors">
               Terms
             </Link>
           </div>

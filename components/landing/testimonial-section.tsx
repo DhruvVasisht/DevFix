@@ -1,8 +1,18 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { VideoModal } from "../video-modal"
 
 export function TestimonialSection() {
+  const router = useRouter()
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
+
+  const handleLoginRedirect = () => {
+    router.push("/sign-in")
+  }
+
   const testimonials = [
     {
       quote: "DevFix has completely transformed how our remote team collaborates on complex coding problems.",
@@ -155,7 +165,10 @@ export function TestimonialSection() {
           </div>
 
           <div className="flex gap-4">
-            <button className="px-6 py-3 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition flex items-center justify-center gap-2 font-medium">
+            <button 
+              onClick={handleLoginRedirect}
+              className="px-6 py-3 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition flex items-center justify-center gap-2 font-medium"
+            >
               Get Started
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -172,12 +185,21 @@ export function TestimonialSection() {
                 <path d="m12 5 7 7-7 7"></path>
               </svg>
             </button>
-            <button className="px-6 py-3 bg-background border border-input rounded-md hover:bg-accent transition flex items-center justify-center gap-2 font-medium">
+            <button 
+              onClick={() => setIsVideoModalOpen(true)}
+              className="px-6 py-3 bg-background border border-input rounded-md hover:bg-accent transition flex items-center justify-center gap-2 font-medium"
+            >
               Learn More
             </button>
           </div>
         </motion.div>
       </div>
+
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoSrc="/DevFix-Demo.mp4"
+      />
     </section>
   )
 }
